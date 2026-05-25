@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Chiqish - PharmacyUz{% endblock %}
+
+{% block content %}
+<div class="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4">
+    <div class="max-w-md w-full bg-white rounded-3xl shadow-xl p-10 text-center">
+        
+        <div class="mx-auto w-20 h-20 bg-red-100 text-red-600 rounded-full flex items-center justify-center text-5xl mb-8">
+            →
+        </div>
+        
+        <h2 class="text-3xl font-bold mb-4">Chiqmoqchimisiz?</h2>
+        <p class="text-gray-600 mb-10">Tizimdan chiqishni tasdiqlaysizmi?</p>
+
+        <form method="POST" action="{% url 'account_logout' %}">
+            {% csrf_token %}
+            
+            <button type="submit" 
+                    class="w-full bg-red-600 hover:bg-red-700 text-white py-4 rounded-3xl text-xl font-semibold transition mb-4">
+                Ha, chiqish
+            </button>
+        </form>
+
+        <a href="{% url 'home' %}" 
+           class="block w-full bg-gray-200 hover:bg-gray-300 text-gray-700 py-4 rounded-3xl text-xl font-semibold transition">
+            Bekor qilish
+        </a>
+    </div>
+</div>
+{% endblock %}

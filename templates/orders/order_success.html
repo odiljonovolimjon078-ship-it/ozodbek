@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block title %}Buyurtma qabul qilindi - PharmacyUz{% endblock %}
+
+{% block content %}
+<div class="max-w-2xl mx-auto px-4 py-20 text-center">
+    <div class="mx-auto w-24 h-24 bg-green-100 text-green-700 rounded-full flex items-center justify-center text-6xl mb-8">
+        ✓
+    </div>
+    
+    <h1 class="text-4xl font-bold mb-4">Rahmat! Buyurtmangiz qabul qilindi</h1>
+    <p class="text-xl text-gray-600 mb-10">Buyurtma raqami: <strong>#{{ order.id }}</strong></p>
+    
+    <div class="bg-white rounded-3xl p-8 shadow-sm mb-10">
+        <div class="space-y-4 text-left">
+            <div class="flex justify-between"><span class="text-gray-600">Ism:</span><span class="font-medium">{{ order.full_name }}</span></div>
+            <div class="flex justify-between"><span class="text-gray-600">Telefon:</span><span class="font-medium">{{ order.phone }}</span></div>
+            <div class="flex justify-between"><span class="text-gray-600">Manzil:</span><span class="font-medium">{{ order.address }}, {{ order.city }}</span></div>
+            <div class="flex justify-between border-t pt-4 font-bold text-xl">
+                <span>Jami summa:</span>
+                <span class="text-green-700">{{ order.total_amount }} so‘m</span>
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="{% url 'my_orders' %}" class="bg-green-700 text-white px-8 py-4 rounded-3xl hover:bg-green-800">Buyurtmalarimni ko‘rish</a>
+        <a href="{% url 'product_list' %}" class="bg-gray-200 text-gray-700 px-8 py-4 rounded-3xl hover:bg-gray-300">Yana dorilar ko‘rish</a>
+    </div>
+</div>
+{% endblock %}

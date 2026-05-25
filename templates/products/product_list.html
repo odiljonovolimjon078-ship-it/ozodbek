@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Dorilar - PharmacyUz{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10">
+    <h1 class="text-4xl font-bold mb-10 text-center">Barcha dorilar</h1>
+
+    <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-6">
+        {% for product in products %}
+        <a href="{% url 'product_detail' product.id %}" class="block group">
+            <div class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-2xl transition-all h-full">
+                <div class="h-52 bg-gray-100 flex items-center justify-center">
+                    {% if product.image %}
+                        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover group-hover:scale-105 transition">
+                    {% else %}
+                        <span class="text-8xl">💊</span>
+                    {% endif %}
+                </div>
+                <div class="p-5">
+                    <p class="text-green-600 text-sm">{{ product.category.name }}</p>
+                    <h3 class="font-semibold mt-2 mb-3 line-clamp-2">{{ product.name }}</h3>
+                    <div class="flex justify-between items-center">
+                        <span class="text-2xl font-bold text-green-700">{{ product.price }} so‘m</span>
+                        <span class="text-green-600">Batafsil →</span>
+                    </div>
+                </div>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

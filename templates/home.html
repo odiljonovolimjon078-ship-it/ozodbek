@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+
+{% block title %}PharmacyUz - Onlayn Dorixona{% endblock %}
+
+{% block content %}
+<!-- Swiper Slider -->
+<div class="max-w-7xl mx-auto px-4 pt-8">
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide">
+                <img src="https://kidsapo.com/wp-content/uploads/2024/07/biofarm-paracetamol-500-mg-20-tabl.jpg" 
+                     class="w-full h-[400px] md:h-[500px] object-cover rounded-3xl" alt="Slider 1">
+            </div>
+            <div class="swiper-slide">
+                <img src="https://www.sudameapteek.ee/media/catalog/product/cache/a68cd95282f629852e6b9e296b7a5618/0/a/0af72284f51154fb70792393ed1c902d.webp" 
+                     class="w-full h-[400px] md:h-[500px] object-cover rounded-3xl" alt="Slider 2">
+            </div>
+            <div class="swiper-slide">
+                <img src="https://www.ahabiochem.com/uploads/202220849/paracetamol-tablets-500mg11293905305.jpg" 
+                     class="w-full h-[400px] md:h-[500px] object-cover rounded-3xl" alt="Slider 3">
+            </div>
+        </div>
+        <!-- Navigation -->
+        <div class="swiper-button-next"></div>
+        <div class="swiper-button-prev"></div>
+    </div>
+</div>
+
+<!-- Ommabop Dorilar (4 ta) -->
+<div class="max-w-7xl mx-auto px-4 py-16">
+    <h2 class="text-3xl font-bold text-center mb-10">Mening dorilarim</h2>
+    
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        {% for product in products|slice:":4" %}
+        <a href="{% url 'product_detail' product.id %}" class="product-card bg-white rounded-3xl overflow-hidden shadow-sm hover:shadow-xl transition">
+            <div class="h-48 bg-gray-100 flex items-center justify-center">
+                {% if product.image %}
+                    <img src="{{ product.image.url }}" alt="{{ product.name }}" class="w-full h-full object-cover">
+                {% else %}
+                    <span class="text-7xl">💊</span>
+                {% endif %}
+            </div>
+            <div class="p-5">
+                <p class="text-green-600 text-sm">{{ product.category.name }}</p>
+                <h3 class="font-semibold mt-2 line-clamp-2">{{ product.name }}</h3>
+                <p class="text-2xl font-bold text-green-700 mt-3">{{ product.price }} so‘m</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- Kategoriyalar -->
+<div class="max-w-7xl mx-auto px-4 py-16 bg-white">
+    <h2 class="text-3xl font-bold text-center mb-12">Kategoriyalar</h2>
+    
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+        <a href="{% url 'product_list' %}" class="bg-white p-8 rounded-3xl text-center hover:shadow-xl transition border border-gray-100">
+            <div class="text-6xl mb-4">💊</div>
+            <h3 class="text-xl font-semibold">Og‘riq qoldiruvchilar</h3>
+        </a>
+        <a href="{% url 'product_list' %}" class="bg-white p-8 rounded-3xl text-center hover:shadow-xl transition border border-gray-100">
+            <div class="text-6xl mb-4">🦠</div>
+            <h3 class="text-xl font-semibold">Antibiotiklar</h3>
+        </a>
+        <a href="{% url 'product_list' %}" class="bg-white p-8 rounded-3xl text-center hover:shadow-xl transition border border-gray-100">
+            <div class="text-6xl mb-4">🛡️</div>
+            <h3 class="text-xl font-semibold">Vitaminlar</h3>
+        </a>
+        <a href="{% url 'product_list' %}" class="bg-white p-8 rounded-3xl text-center hover:shadow-xl transition border border-gray-100">
+            <div class="text-6xl mb-4">🤧</div>
+            <h3 class="text-xl font-semibold">Allergiya</h3>
+        </a>
+    </div>
+</div>
+
+<!-- Swiper JS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+
+<script>
+    var swiper = new Swiper(".mySwiper", {
+        loop: true,
+        autoplay: {
+            delay: 4000,
+            disableOnInteraction: false,
+        },
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        pagination: {
+            el: ".swiper-pagination",
+            clickable: true,
+        }
+    });
+</script>
+{% endblock %}

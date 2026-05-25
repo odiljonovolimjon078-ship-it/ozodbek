@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+
+{% block title %}Savat - PharmacyUz{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10">
+    <h1 class="text-4xl font-bold mb-8">Savatim</h1>
+
+    {% if cart_items %}
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div class="lg:col-span-2 space-y-6">
+            {% for item in cart_items %}
+            <div class="bg-white rounded-3xl p-6 flex gap-6">
+                <div class="w-24 h-24 bg-gray-100 rounded-2xl flex items-center justify-center text-5xl">💊</div>
+                <div class="flex-1">
+                    <h3 class="font-semibold">{{ item.product.name }}</h3>
+                    <p class="text-green-600">{{ item.product.price }} so‘m</p>
+                    <p class="mt-2">Miqdor: <strong>{{ item.quantity }}</strong></p>
+                </div>
+                <div class="text-right">
+                    <p class="text-2xl font-bold text-green-700">{{ item.total_price }} so‘m</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div class="bg-white p-8 rounded-3xl h-fit">
+            <h2 class="text-2xl font-semibold mb-6">Buyurtma</h2>
+            <div class="flex justify-between text-xl mb-6">
+                <span>Jami:</span>
+                <span class="font-bold text-green-700">{{ total }} so‘m</span>
+            </div>
+            <a href="{% url 'checkout' %}" class="w-full bg-green-700 text-white py-4 rounded-3xl text-xl font-semibold text-center hover:bg-green-800 block">
+                Buyurtma berish
+            </a>
+        </div>
+    </div>
+    {% else %}
+    <div class="text-center py-24">
+        <h2 class="text-3xl font-semibold mb-4">Savat bo‘sh</h2>
+        <a href="{% url 'product_list' %}" class="text-green-700 text-lg">Dorilarni ko‘rish →</a>
+    </div>
+    {% endif %}
+</div>
+{% endblock %}

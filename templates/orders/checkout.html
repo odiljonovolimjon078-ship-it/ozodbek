@@ -1,0 +1,73 @@
+{% extends 'base.html' %}
+
+{% block title %}Buyurtma berish - PharmacyUz{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10">
+    <h1 class="text-4xl font-bold mb-10 text-center">Buyurtma berish</h1>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-10">
+        
+        <!-- Yetkazib berish formasi -->
+        <div class="bg-white p-8 rounded-3xl shadow-sm">
+            <h2 class="text-2xl font-semibold mb-6">Yetkazib berish ma'lumotlari</h2>
+            
+            <form method="POST" action="{% url 'place_order' %}">
+                {% csrf_token %}
+                
+                <div class="space-y-6">
+                    <div>
+                        <label class="block text-sm font-medium mb-2">To'liq ismingiz *</label>
+                        <input type="text" name="full_name" required 
+                               class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-green-600">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Telefon raqam *</label>
+                        <input type="tel" name="phone" required 
+                               class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-green-600" 
+                               placeholder="+998 XX XXX XX XX">
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Manzil *</label>
+                        <textarea name="address" rows="4" required 
+                                  class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-green-600"></textarea>
+                    </div>
+                    
+                    <div>
+                        <label class="block text-sm font-medium mb-2">Shahar</label>
+                        <input type="text" name="city" value="Toshkent" 
+                               class="w-full px-5 py-4 border border-gray-300 rounded-2xl focus:outline-none focus:border-green-600">
+                    </div>
+                </div>
+                
+                <button type="submit" 
+                        class="w-full mt-10 bg-green-700 hover:bg-green-800 text-white py-5 rounded-3xl text-xl font-semibold">
+                    Buyurtmani tasdiqlash
+                </button>
+            </form>
+        </div>
+
+        <!-- Savatdagi mahsulotlar -->
+        <div class="bg-white p-8 rounded-3xl shadow-sm">
+            <h2 class="text-2xl font-semibold mb-6">Savatdagi mahsulotlar</h2>
+            
+            {% for item in cart_items %}
+            <div class="flex justify-between py-4 border-b last:border-0">
+                <div>
+                    <p class="font-medium">{{ item.product.name }}</p>
+                    <p class="text-sm text-gray-500">{{ item.quantity }} dona</p>
+                </div>
+                <p class="font-semibold text-green-700">{{ item.total_price }} so‘m</p>
+            </div>
+            {% endfor %}
+            
+            <div class="mt-8 pt-6 border-t flex justify-between text-2xl font-bold">
+                <span>Jami:</span>
+                <span class="text-green-700">{{ total }} so‘m</span>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

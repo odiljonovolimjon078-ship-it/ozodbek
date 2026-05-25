@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}PharmacyUz{% endblock %}</title>
+    
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        .hero-bg {
+            background: linear-gradient(135deg, #10b981, #34d399);
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+
+    <!-- Header -->
+    <header class="bg-white shadow-sm border-b sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex items-center justify-between py-4">
+                
+                <!-- Logo -->
+                <div class="flex items-center gap-3">
+                    <div class="w-10 h-10 md:w-11 md:h-11 bg-green-700 rounded-2xl flex items-center justify-center text-3xl shadow-inner">💊</div>
+                    <h1 class="text-2xl md:text-3xl font-bold text-green-700 tracking-tight">Pharmacy</h1>
+                </div>
+
+                <!-- Search Bar - Har doim ko'rinadi -->
+                <div class="flex-1 max-w-xl mx-4 md:mx-8">
+                    <form action="{% url 'product_list' %}" method="GET">
+                        <div class="relative">
+                            <input type="text" name="q" value="{{ search_query|default:'' }}"
+                                   class="w-full py-3 px-5 bg-gray-100 border border-gray-300 rounded-full focus:outline-none focus:border-green-600 text-base md:text-lg"
+                                   placeholder="Search">
+                            <button type="submit" 
+                                    class="absolute right-4 top-1/2 -translate-y-1/2 text-green-700 hover:text-green-800">
+                                <i class="fas fa-search text-xl"></i>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+
+                <!-- Right Menu -->
+                <div class="flex items-center gap-3 md:gap-6">
+                    {% if user.is_authenticated %}
+                        <!-- User Icon -->
+                        <div class="relative group">
+                            <button class="flex items-center gap-2 focus:outline-none">
+                                <div class="w-8 h-8 md:w-9 md:h-9 bg-green-700 text-white rounded-full flex items-center justify-center text-lg font-medium">
+                                    {{ user.email|slice:":1"|upper }}
+                                </div>
+                            </button>
+                            <div class="absolute right-0 mt-2 w-48 bg-white rounded-2xl shadow-xl py-2 hidden group-hover:block z-50 border border-gray-100">
+                                <div class="px-4 py-2 text-sm border-b">Salom, {{ user.email|default:user.username }}</div>
+                                <a href="{% url 'my_orders' %}" class="block px-4 py-3 hover:bg-gray-100 text-sm">Buyurtmalarim</a>
+                                <a href="{% url 'account_logout' %}" class="block px-4 py-3 hover:bg-gray-100 text-red-600 text-sm">Chiqish</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <a href="{% url 'account_login' %}" class="hidden md:block text-gray-700 hover:text-green-700">Kirish</a>
+                        <a href="{% url 'account_signup' %}" 
+                           class="bg-green-700 text-white px-4 md:px-6 py-2 rounded-full hover:bg-green-800 transition text-sm md:text-base">
+                            Ro‘yxatdan o‘tish
+                        </a>
+                    {% endif %}
+                    
+                    <a href="{% url 'cart' %}" class="relative text-2xl text-gray-700 hover:text-green-700">
+                        <i class="fas fa-shopping-cart"></i>
+                        <span id="cart-count" 
+                              class="absolute -top-1 -right-1 bg-red-500 text-white text-xs font-bold w-5 h-5 rounded-full flex items-center justify-center">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    {% block content %}
+    {% endblock %}
+
+    <footer class="bg-green-800 text-white py-12 mt-20">
+        <div class="max-w-7xl mx-auto px-4 text-center">
+            <p>© 2026 PharmacyUz - Barcha huquqlar himoyalangan</p>
+        </div>
+    </footer>
+</body>
+</html>

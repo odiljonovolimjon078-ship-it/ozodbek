@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Mening buyurtmalarim - PharmacyUz{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10">
+    <h1 class="text-4xl font-bold mb-10">Mening buyurtmalarim</h1>
+
+    {% if orders %}
+        <div class="space-y-6">
+            {% for order in orders %}
+            <div class="bg-white rounded-3xl p-8 shadow-sm">
+                <div class="flex flex-col md:flex-row justify-between gap-6">
+                    <div>
+                        <p class="text-sm text-gray-500">Buyurtma №{{ order.id }}</p>
+                        <p class="font-semibold">{{ order.created_at|date:"d.m.Y H:i" }}</p>
+                    </div>
+                    <span class="px-6 py-2.5 rounded-full text-sm font-medium bg-green-100 text-green-700">
+                        {{ order.get_status_display }}
+                    </span>
+                </div>
+                <div class="mt-6 pt-6 border-t flex justify-between">
+                    <div>
+                        <p class="text-gray-600">Jami summa</p>
+                        <p class="text-3xl font-bold text-green-700">{{ order.total_amount }} so‘m</p>
+                    </div>
+                    <a href="#" class="text-green-700 hover:underline">Tafsilotlar →</a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    {% else %}
+        <div class="text-center py-24 bg-white rounded-3xl">
+            <h2 class="text-3xl font-semibold">Sizda hali buyurtma yo‘q</h2>
+            <a href="{% url 'product_list' %}" class="text-green-700 mt-6 inline-block">Dorilarni ko‘rish →</a>
+        </div>
+    {% endif %}
+</div>
+{% endblock %}

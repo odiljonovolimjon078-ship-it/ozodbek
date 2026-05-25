@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block title %}{{ product.name }} - PharmacyUz{% endblock %}
+
+{% block content %}
+<div class="max-w-7xl mx-auto px-4 py-10">
+    
+    <div class="mb-8">
+        <a href="{% url 'product_list' %}" class="inline-flex items-center gap-2 text-green-700 hover:text-green-800 font-medium">
+            ← Orqaga
+        </a>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <!-- Rasm -->
+        <div class="bg-gray-100 rounded-3xl p-8 flex items-center justify-center min-h-[450px]">
+            {% if product.image %}
+                <img src="{{ product.image.url }}" alt="{{ product.name }}" class="max-h-[500px] object-contain">
+            {% else %}
+                <span class="text-[220px] opacity-80">💊</span>
+            {% endif %}
+        </div>
+
+        <!-- Ma'lumot -->
+        <div class="space-y-6">
+            <p class="text-green-600 font-medium">{{ product.category.name }}</p>
+            <h1 class="text-4xl font-bold">{{ product.name }}</h1>
+            
+            <div class="flex items-baseline gap-4">
+                <span class="text-4xl font-bold text-green-700">{{ product.price }} so‘m</span>
+                {% if product.old_price %}
+                <span class="text-2xl text-gray-400 line-through">{{ product.old_price }} so‘m</span>
+                {% endif %}
+            </div>
+
+            <div>
+                <h3 class="font-semibold text-xl mb-3">Tavsif</h3>
+                <p class="text-gray-600 leading-relaxed">
+                    {{ product.description|default:"Ushbu mahsulot haqida ma'lumot qo'shilmagan." }}
+                </p>
+            </div>
+
+            <a href="{% url 'add_to_cart' product.id %}" 
+               class="block w-full bg-green-700 hover:bg-green-800 text-white text-center py-6 rounded-3xl text-2xl font-semibold mt-8">
+                Savatga qo'shish
+            </a>
+        </div>
+    </div>
+</div>
+{% endblock %}
